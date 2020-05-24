@@ -13,11 +13,13 @@ class WeatherViewController: UIViewController, UISearchTextFieldDelegate, Weathe
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var searchField: UITextField!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     var weatherApi = WeatherApi()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadingIndicator.stopAnimating()
         weatherApi.delegate = self
         searchField.delegate = self
     }
@@ -40,15 +42,23 @@ class WeatherViewController: UIViewController, UISearchTextFieldDelegate, Weathe
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        loadingIndicator.startAnimating()
         let city = searchField.text ?? ""
         weatherApi.fetchWeather(city: city)
         searchField.text = ""
     }
     
-    func didUpdateWeather(weather: WeatherModel) {
-        print(weather.cityName)
-        print(String(weather.temperature))
-        
+    func didUpdateWeather(_ weatherApi: WeatherApi, weather: WeatherModel) {
+        DispatchQueue.main.async {
+            self.loadingIndicator.stopAnimating()
+            self.cityLabel.text = weather.cityName
+            self.temperatureLabel.text = weather.formattedTemprature
+            self.conditionImageView.image = UIImage(systemName: weather.conditionName)
+        }
+    }
+    
+    func didFailWithError(error: Error) {
+        print(error)
     }
 }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_5" orientation="portrait" appearance="dark"/>
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -86,12 +86,18 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="dwN-6G-hcv">
+                                        <rect key="frame" x="0.0" y="355.66666666666669" width="374" height="37"/>
+                                        <color key="color" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    </activityIndicatorView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ti-bh-8Fw">
-                                        <rect key="frame" x="134" y="355.66666666666674" width="240" height="462.33333333333326"/>
+                                        <rect key="frame" x="134" y="402.66666666666674" width="240" height="415.33333333333326"/>
                                     </view>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="dwN-6G-hcv" secondAttribute="trailing" id="8nc-FA-1vh"/>
                                     <constraint firstAttribute="trailing" secondItem="Tgv-vV-Mot" secondAttribute="trailing" id="Xxe-YD-sFY"/>
+                                    <constraint firstItem="dwN-6G-hcv" firstAttribute="leading" secondItem="Wz9-jj-JbA" secondAttribute="leading" id="qAj-2S-Inv"/>
                                     <constraint firstItem="Tgv-vV-Mot" firstAttribute="leading" secondItem="Wz9-jj-JbA" secondAttribute="leading" id="zMA-9O-gQ7"/>
                                 </constraints>
                             </stackView>
@@ -112,6 +118,7 @@
                     <connections>
                         <outlet property="cityLabel" destination="CWP-r8-Jsy" id="8cQ-3l-ufV"/>
                         <outlet property="conditionImageView" destination="mYn-vV-MBC" id="gpD-FU-YB0"/>
+                        <outlet property="loadingIndicator" destination="dwN-6G-hcv" id="cT2-8s-Nd8"/>
                         <outlet property="searchField" destination="2eh-wL-W34" id="WsJ-TB-xTz"/>
                         <outlet property="temperatureLabel" destination="w9o-tW-03D" id="mF4-vV-JxK"/>
                     </connections>
