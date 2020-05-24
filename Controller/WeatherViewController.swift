@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WeatherViewController: UIViewController, UISearchTextFieldDelegate, WeatherApiDelegate {
+class WeatherViewController: UIViewController {
     @IBOutlet weak var conditionImageView: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
@@ -23,7 +23,10 @@ class WeatherViewController: UIViewController, UISearchTextFieldDelegate, Weathe
         weatherApi.delegate = self
         searchField.delegate = self
     }
+}
 
+//MARK: - UITextFieldDelegate
+extension WeatherViewController: UITextFieldDelegate {
     @IBAction func searchPressed(_ sender: UIButton) {
         searchField.endEditing(true)
     }
@@ -47,7 +50,10 @@ class WeatherViewController: UIViewController, UISearchTextFieldDelegate, Weathe
         weatherApi.fetchWeather(city: city)
         searchField.text = ""
     }
-    
+}
+
+//MARK: - WeatherApiDelegate
+extension WeatherViewController: WeatherApiDelegate {
     func didUpdateWeather(_ weatherApi: WeatherApi, weather: WeatherModel) {
         DispatchQueue.main.async {
             self.loadingIndicator.stopAnimating()
@@ -61,4 +67,3 @@ class WeatherViewController: UIViewController, UISearchTextFieldDelegate, Weathe
         print(error)
     }
 }
-
