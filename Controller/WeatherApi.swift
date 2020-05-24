@@ -14,12 +14,17 @@ protocol WeatherApiDelegate {
 }
 
 struct WeatherApi {
-    let weatherUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&appid=3322576cb29d590664fba17b7734a32d&q="
+    let weatherUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&appid=3322576cb29d590664fba17b7734a32d"
     
     var delegate: WeatherApiDelegate?
     
     func fetchWeather(city: String) {
-        let url = weatherUrl + city
+        let url = weatherUrl + "&q=" + city
+        requestWeather(url)
+    }
+    
+    func fetchWeather(lat: String, lon: String) {
+        let url = weatherUrl + "&lat=" + lat + "&lon=" + lon
         requestWeather(url)
     }
     
@@ -47,9 +52,10 @@ struct WeatherApi {
         do {
             let decodedWeatherData = try decoder.decode(WeatherData.self, from: weatherData)
             let id = decodedWeatherData.weather[0].id
+            let description = decodedWeatherData.weather[0].description
             let temprature = decodedWeatherData.main.temp
             let city = decodedWeatherData.name
-            return WeatherModel(conditionId: id, cityName: city, temperature: temprature)
+            return WeatherModel(conditionId: id, description: description, cityName: city, temperature: temprature)
         } catch {
             delegate?.didFailWithError(error: error)
             return nil
